@@ -1,0 +1,237 @@
+﻿{{include 'default/public/header.html'}}
+</head>
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			{{include 'default/public/nav_top.html'}}
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+				<!--左侧导航-->
+				{{include 'default/public/nav_left.html'}}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+							<li class="active">概况</li>
+						</ul><!-- .breadcrumb -->
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="icon-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- #nav-search -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+								概况
+								<small>
+									<i class="icon-double-angle-right"></i>
+									 查看
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="alert alert-block alert-success">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="icon-remove"></i>
+									</button>
+									<i class="icon-ok green"></i>
+									欢迎使用
+									<strong class="green">
+										会员登陆系统
+										<small>(v1.2)</small>
+									</strong>
+									在这里能收到最新的考试信息。	
+								</div>
+								<div class="row">
+									<div class="space-6"></div>
+									<div class="col-sm-5" style="margin:0 auto;width:80%;">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small header-color-orange">
+												<h5>
+													<i class="icon-fire bigger-110" ></i>
+													最新公告
+												</h5>
+												&nbsp;&nbsp;&nbsp;详情请到左侧公告查询查看
+											</div>
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder"></div>
+													<div class="hr hr8 "></div>
+													<div id="faq-list-1" class="panel-group accordion-style1 accordion-style2">
+														
+
+
+
+														{{each list}}	
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<a href="#faq{{@$value._id}}" data-parent="#faq-list-1" data-toggle="collapse" class="accordion-toggle">
+																	<i class="icon-chevron-left pull-right" data-icon-hide="icon-chevron-down" data-icon-show="icon-chevron-left"></i>
+		
+																	<i class="icon-book orange"></i>
+																	<span class='orange'>&nbsp; {{$value.title}}</span>
+																</a>
+															</div>
+		
+															<div class="panel-collapse collapse" id="faq{{@$value._id}}">
+																<div class="panel-body">
+																{{$value.description}}	
+																</div>
+															</div>
+														</div>	
+														{{/each}}
+		
+														
+		
+														
+		
+														
+		
+														
+													</div>
+												</div><!-- /widget-main -->
+											</div><!-- /widget-body -->
+										</div><!-- /widget-box -->
+									</div><!-- /span -->
+								</div><!-- /row -->
+								<div class="col-xs-12 col-sm-6 widget-container-span">
+									<div class="widget-box">
+										<div class="widget-header header-color-pink">
+											<h5 class="bigger lighter">
+												<i class="icon-user"></i>
+												用户信息
+											</h5>
+										</div>
+										<div class="widget-body">
+											<div class="widget-main no-padding">
+												<table class="table table-striped table-bordered table-hover">
+													<thead class="thin-border-bottom">
+														<tr>
+															<th>
+																<i class="icon-list pink"></i>
+																<span class="pink">项目</span>
+															</th>
+															<th>
+																<i class="icon-list-alt pink"></i>
+																<span class="pink">详情</span>
+															</th>
+															<th class="hidden-480"><i class="icon-cog pink"></i>
+																<span class="pink">操作</span>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="">用户名:</td>
+															<td>
+																{{Gf.userLogin.username}}
+															</td>
+															<td class="hidden-480">
+																<span class="label label-danger arrowed">联系管理员修改</span>
+															</td>
+														</tr>
+														<tr>
+															<td class="">报名科目：</td>
+															<td>
+																{{each Gf.userLogin.subjects}}{{$value}} &nbsp; {{/each}}
+															</td>
+															<td class="hidden-480">
+																<span class="label label-danger arrowed">联系管理员修改</span>
+															</td>
+														</tr>
+														<tr>
+															<td class="">电话：</td>
+															<td>
+															{{if Gf.userLogin.phone}}{{Gf.userLogin.phone}}{{else}}<a href="{{__HOST__}}/user/edit">请前往设置</a>{{/if}}
+															</td>
+															<td class="hidden-480">
+																<a href="{{__HOST__}}/user/edit"><span class="label label-warning">点击修改</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="">QQ：</td>
+															<td>
+																{{if Gf.userLogin.qq}}{{Gf.userLogin.qq}}{{else}}<a href="{{__HOST__}}/user/edit">请前往设置</a>{{/if}}
+															</td>
+
+															<td class="hidden-480">
+																<a href="{{__HOST__}}/user/edit"><span class="label label-warning">点击修改</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="">邮箱：</td>
+															<td>
+																{{if Gf.userLogin.email}}{{Gf.userLogin.email}}{{else}}<a href="{{__HOST__}}/user/edit">请前往设置</a>{{/if}}
+															</td>
+															<td class="hidden-480">
+																<a href="{{__HOST__}}/user/edit"><span class="label label-warning">点击修改</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="">最后登陆时间：</td>
+															<td>
+																{{Gf.userLogin.last_time | dateFormat}}
+															</td>
+															<td class="hidden-480">
+																<span class="label label-info arrowed-in arrowed-in-right">自动生成</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								</div><!-- /span -->
+							</div><!-- /row -->
+
+								<div class="hr hr32 hr-dotted"></div>
+
+		
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				{{include 'default/public/setting.html'}}
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		{{include 'default/public/footer.html'}}
+
+
+</body>
+</html>
+

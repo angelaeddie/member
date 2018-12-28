@@ -1,0 +1,199 @@
+﻿{{include 'default/public/header.html'}}
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			{{include 'default/public/nav_top.html'}}
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<!--左侧导航-->
+
+				{{include 'default/public/nav_left.html'}}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+							<li class="active">控制台</li>
+						</ul><!-- .breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="icon-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- #nav-search -->
+					</div>
+
+					<div class="page-content">
+
+						<div class="page-header">
+							<h1 >
+								公告列表
+							</h1>
+						</div><!-- /.page-header -->
+
+
+
+						<!--表格-->
+
+						<div  style="width:100%">
+							<div class="widget-box">
+								<div class="widget-header header-color-purple">
+									<h5 class="bigger lighter">
+										<i class=" icon-bullhorn"></i>
+										
+									</h5>
+
+								</div>
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<table class="table table-striped table-bordered table-hover">
+									<thead class="thin-border-bottom">
+										<tr>
+											<th class="center">
+												<i class="icon-list purple"></i>
+												<span class="purple">标题</span>
+											</th>
+
+											<th class="center">
+												<i class="icon-list-alt purple"></i>
+												<span class="purple">分类</span>
+											</th>
+											<th class="center">
+												<i class="icon-time bigger-110 hidden-480 purple"></i>
+												<span class="purple">发布时间</span>
+											</th>
+											<th class="center"><i class="icon-eye-open purple"></i>
+												<span class="purple">查看详情</span>
+											</th>
+										</tr>
+									</thead>
+
+									<tbody>
+
+										{{each list}}
+											<tr class="center">
+		
+												<td>
+													{{$value.title}}
+												</td>
+												<td>
+													{{$value.catename}}
+												</td>
+		
+												<td>
+		
+													{{if $value.add_time}}
+															{{$value.add_time | dateFormat}}
+													{{/if}}
+		
+												</td>
+												
+												<td>
+													<a href="{{__HOST__}}/article/detail?id={{@$value._id}}" >
+														<button class="btn btn-xs btn-purple">
+															<i class="icon-arrow-right icon-on-right"></i>
+															GO
+														</button>
+													</a>
+											
+												</td>
+											</tr>
+											{{/each}}
+		
+										</tbody>
+								</table>
+								<div id="page" class="pagination"></div>
+							</div>
+						</div>
+					</div>
+				</div><!-- /.main-content -->
+				{{include 'default/public/setting.html'}}
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+
+
+	{{include 'default/public/footer.html'}}
+
+	<!--注意放在jq下面-->
+    <script src="{{__HOST__}}/admin/jqPaginator.js"></script>
+
+
+	<script>
+		$('#page').jqPaginator({
+			totalPages: {{totalPages}},
+			visiblePages: 8,
+			currentPage: {{page}},
+			onPageChange: function (num, type) {
+	
+				if(type=='change'){
+					location.href="{{__HOST__}}/article?page="+num;
+				}
+			}
+		});
+
+	</script>
+
+
+	<script type="text/javascript">
+		jQuery(function($) {
+
+
+			$('table th input:checkbox').on('click' , function(){
+				var that = this;
+				$(this).closest('table').find('tr > td:first-child input:checkbox')
+				.each(function(){
+					this.checked = that.checked;
+					$(this).closest('tr').toggleClass('selected');
+				});
+
+			});
+
+
+			$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+
+				var off2 = $source.offset();
+				var w2 = $source.width();
+
+				if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+				return 'left';
+			}
+		})
+	</script>
+	
+</body>
+</html>
+
