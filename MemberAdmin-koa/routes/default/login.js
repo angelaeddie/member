@@ -2,14 +2,12 @@
  * Created by Administrator on 2018/3/20 0020.
  */
 const router = require('koa-router')();
-
-
-
 const DB = require('../../model/db.js');
 
 //验证码模块
 var svgCaptcha = require('svg-captcha');
 router.get('/', async (ctx) => {
+    
     await ctx.render('./default/login');
 })
 

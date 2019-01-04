@@ -120,9 +120,18 @@ router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
     let author=ctx.req.body.author.trim();
     let pic=ctx.req.body.author;
     let status=parseInt(ctx.req.body.status);
-    let is_best=parseInt(ctx.req.body.is_best); //精品
-    let is_hot=parseInt(ctx.req.body.is_hot);//热销
-    let is_new=parseInt(ctx.req.body.is_new);//新品
+    let is_best=1;//精品
+    if(ctx.req.body.is_best==undefined||ctx.req.body.is_best==null||ctx.req.body.is_best==''){ 
+        is_best = 0;
+    }
+    is_hot =1; //热销
+    if(ctx.req.body.is_hot==undefined||ctx.req.body.is_hot==null||ctx.req.body.is_hot==''){ 
+        is_hot = 0;
+    }
+    let is_new = 1;//新品
+    if(ctx.req.body.is_new==undefined||ctx.req.body.is_new==null||ctx.req.body.is_new==''){ 
+        is_new = 0;
+    }
     let keywords=ctx.req.body.keywords;
     let description=ctx.req.body.description || '';
     let content=ctx.req.body.content ||'';
@@ -172,10 +181,22 @@ router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
     let title=ctx.req.body.title.trim();
     let author=ctx.req.body.author.trim();
     let pic=ctx.req.body.author;
-    let status=ctx.req.body.status;
-    let is_best=ctx.req.body.is_best;
-    let is_hot=ctx.req.body.is_hot;
-    let is_new=ctx.req.body.is_new;
+    let status=parseInt(ctx.req.body.status);
+    console.log('is_best:'+ctx.req.body.is_best);
+    console.log('is_hot:'+ctx.req.body.is_hot);
+    console.log('is_new:'+ctx.req.body.is_new);
+    let is_best=1;//精品
+    if(ctx.req.body.is_best==undefined||ctx.req.body.is_best==null||ctx.req.body.is_best==''){ 
+        is_best = 0;
+    }
+    is_hot =1; //热销
+    if(ctx.req.body.is_hot==undefined||ctx.req.body.is_hot==null||ctx.req.body.is_hot==''){ 
+        is_hot = 0;
+    }
+    let is_new = 1;//新品
+    if(ctx.req.body.is_new==undefined||ctx.req.body.is_new==null||ctx.req.body.is_new==''){ 
+        is_new = 0;
+    }
     let keywords=ctx.req.body.keywords;
     let description=ctx.req.body.description || '';
     let content=ctx.req.body.content ||'';

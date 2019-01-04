@@ -134,6 +134,20 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="detail_top">文章详情开头内容:</label>
+							<div class="col-sm-10">
+								<textarea name="detail_top" id="detail_top" cols="80" rows="5">{{list.detail_top}}</textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right" for="detail_foot">文章详情foot内容:</label>
+							<div class="col-sm-10">
+								<textarea name="detail_foot" id="detail_foot" cols="80" rows="5">{{list.detail_foot}}</textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-sm-2 control-label no-padding-right">是否关闭网站：</label>
 							<div class="col-sm-10">
 								<label for="status1">是：</label><input type="radio" name="site_status"  id="status1" value="1" {{if list.site_status}}checked{{/if}} />

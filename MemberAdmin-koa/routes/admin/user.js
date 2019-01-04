@@ -2,7 +2,7 @@
  * @Author: AngelaEddie 
  * @Date: 2018-12-26 00:11:19 
  * @Last Modified by: AngelaEddie
- * @Last Modified time: 2018-12-27 18:25:21
+ * @Last Modified time: 2019-01-04 04:57:46
  */
 
 var router = require('koa-router')();
@@ -112,7 +112,7 @@ router.get('/edit', async (ctx) => {
     var subjects = await DB.find('articlecate', { 'pid': '0' });
     
     //console.log(result);
-    console.log(subjects );
+    //console.log(subjects );
     await ctx.render('admin/user/edit', {
         subjects: subjects,
         list: result[0]
@@ -124,7 +124,7 @@ router.post('/doEdit', async (ctx) => {
 
     try {
         var requestUser = ctx.request.body;
-        console.log(ctx.request.body);
+        //console.log(ctx.request.body);
         var id = ctx.request.body.id;
         //var username = ctx.request.body.username;
         var password = ctx.request.body.password;
@@ -135,6 +135,10 @@ router.post('/doEdit', async (ctx) => {
         var subjects=ctx.request.body.subjects;
         var json={
             password,qq,phone,email,subjects
+        }
+        var json2={
+
+            qq,phone,email,subjects
         }
         if (password != '') {
             if (password != rpassword || password.length < 6) {
@@ -147,11 +151,11 @@ router.post('/doEdit', async (ctx) => {
             } else {
 
                 //更新密码
-                var updateResult = await DB.update('user', { "_id": DB.getObjectId(id) }, json);
+                await DB.update('user', { "_id": DB.getObjectId(id) }, json);
                 ctx.redirect(ctx.state.__HOST__ + '/admin/user');
             }
         } else {
-
+            await DB.update('user', { "_id": DB.getObjectId(id) }, json2);
             ctx.redirect(ctx.state.__HOST__ + '/admin/user');
         }
 

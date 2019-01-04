@@ -49,7 +49,7 @@ router.post('/doAdd',async (ctx)=>{
             redirect:ctx.state.__HOST__+'/admin/manage/add'
         })
 
-    }else if(password!=rpassword ||password.length>6){
+    }else if(password!=rpassword ||password.length<6){
 
            await ctx.render('admin/error',{
                 message:'密码和确认密码不一致，或者密码长度小于6位',

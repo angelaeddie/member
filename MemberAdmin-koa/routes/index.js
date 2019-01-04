@@ -1,13 +1,14 @@
 /*
  * @Author: AngelaEddie 
  * @Date: 2018-12-28 21:41:56 
- * @Last Modified by:   AngelaEddie 
- * @Last Modified time: 2018-12-28 21:41:56 
+ * @Last Modified by: AngelaEddie
+ * @Last Modified time: 2018-12-29 03:10:03
  */
 var router = require('koa-router')();
 //引入模块
 var url=require('url');
 //配置中间件 获取url的地址
+var DB = require('../model/db');
 router.use(async (ctx,next)=>{
     //console.log(ctx.request.header.host);
     //模板引擎配置全局的变量
@@ -18,8 +19,11 @@ router.use(async (ctx,next)=>{
     //左侧菜单选中
     var splitUrl=pathname.split('/');
     //console.log(splitUrl);
+    var setting = await DB.find('setting',{});
+    //console.log(setting);
     //用户的ueserLogin
     ctx.state.Gf={
+        setting:setting[0],
         url:splitUrl,
         userLogin:ctx.session.userLogin,
         prevPage:ctx.request.headers['referer']   /*上一页的地址*/

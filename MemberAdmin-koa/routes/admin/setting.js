@@ -34,18 +34,20 @@ router.post('/doEdit',tools.multer().single('site_logo'),async (ctx)=>{
     var site_qq=ctx.req.body.site_qq;
     var site_tel=ctx.req.body.site_tel;
     var site_address=ctx.req.body.site_address;
-    var site_status=ctx.req.body.site_status;
+    var site_status=parseInt(ctx.req.body.site_status);
     var site_copyright = ctx.req.body.site_copyright
     var add_time=tools.getTime();
-    
+    var detail_foot = ctx.req.body.detail_foot;
+    var detail_top =ctx.req.body.detail_top;
+
     if(site_logo){
         var json={
-            site_title,site_logo,site_keywords,site_description,site_icp,site_qq,site_tel,site_address,site_status,add_time,site_copyright
+            site_title,site_logo,site_keywords,site_description,site_icp,site_qq,site_tel,site_address,site_status,add_time,site_copyright,detail_foot,detail_top
 
         }
     }else{
         var json={
-            site_title,site_keywords,site_description,site_icp,site_qq,site_tel,site_address,site_status,add_time,site_copyright
+            site_title,site_keywords,site_description,site_icp,site_qq,site_tel,site_address,site_status,add_time,site_copyright,detail_foot,detail_top
 
         }
 
