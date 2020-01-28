@@ -2,7 +2,7 @@
  * @Author: AngelaEddie 
  * @Date: 2018-12-26 00:11:19 
  * @Last Modified by: AngelaEddie
- * @Last Modified time: 2019-01-04 04:57:46
+ * @Last Modified time: 2020-01-28 22:26:39
  */
 
 var router = require('koa-router')();
@@ -60,10 +60,10 @@ router.post('/doAdd', async (ctx) => {
     var last_time = tools.getTime();
     
     if(typeof(ctx.request.body.subjects) != 'string'){
-
+   
         subjects = ctx.request.body.subjects;
     }else{
-
+      
         subjects.push(ctx.request.body.subjects);
     }
     
@@ -89,7 +89,7 @@ router.post('/doAdd', async (ctx) => {
             })
 
         } else {
-
+            
             //增加用户
             var addResult = await DB.insert('user', { "username": username, "password": password, "subjects": subjects, "status": 1, "last_time": last_time });
 
@@ -132,7 +132,15 @@ router.post('/doEdit', async (ctx) => {
         var qq=ctx.request.body.qq;
         var phone=ctx.request.body.phone;
         var email=ctx.request.body.email;
-        var subjects=ctx.request.body.subjects;
+
+        var subjects=[];
+        if(typeof(ctx.request.body.subjects) != 'string'){
+   
+            subjects = ctx.request.body.subjects;
+        }else{
+          
+            subjects.push(ctx.request.body.subjects);
+        }
         var json={
             password,qq,phone,email,subjects
         }
