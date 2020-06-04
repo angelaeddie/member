@@ -115,7 +115,8 @@ router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
     //    body:ctx.req.body
     //}
     let pid=ctx.req.body.pid;
-    let catename=ctx.req.body.catename.trim();
+    let articlecateItem = await DB.find('articlecate',{"_id":DB.getObjectId(pid)});
+    let catename=articlecateItem[0].title;
     let title=ctx.req.body.title.trim();
     let author=ctx.req.body.author.trim();
     let pic=ctx.req.body.author;
@@ -177,7 +178,8 @@ router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
     let prevPage=ctx.req.body.prevPage || '';  /*上一页的地址*/
     let id=ctx.req.body.id;
     let pid=ctx.req.body.pid;
-    let catename=ctx.req.body.catename.trim();
+    let articlecateItem = await DB.find('articlecate',{"_id":DB.getObjectId(pid)});
+    let catename=articlecateItem[0].title;
     let title=ctx.req.body.title.trim();
     let author=ctx.req.body.author.trim();
     let pic=ctx.req.body.author;

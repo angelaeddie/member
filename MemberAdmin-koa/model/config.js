@@ -6,7 +6,7 @@
 
 var app={
 
-    dbUrl: 'mongodb://localhost:27017/',
+    dbUrl: 'mongodb://admin:Inkin416!@103.197.27.28:27027/',
 
     dbName: 'koa-member'
 
