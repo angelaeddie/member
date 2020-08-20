@@ -45,10 +45,10 @@ io.sockets.emit()：向所有客户端广播
  */
 // 监听socket连接
 io.on("connect", async (socket) => {
-  const noCsMsg = "暂时没有客服在线，请联系QQ客服 QQ: 857009534  /  810667822 或者访问 <a href='http://cet-pass.cn'>cet-pass.cn</a>";
+  const noCsMsg = "暂时没有客服在线，请联系QQ客服:<br> QQ: 857009534  /  810667822 <br>或者访问<br> <a href='http://cet-pass.cn'>cet-pass.cn</a>";
   const query = socket.handshake.query;
   const id = socket.id;
-  // console.log(id);//所有在线 socket集合
+  console.log(query);//所有在线 socket集合
   const { room, token, type } = query;
   const ip = socket.handshake.address.replace("::ffff:", "");
 
@@ -60,9 +60,11 @@ io.on("connect", async (socket) => {
       console.log("#disconnect_server", msg + "客服端id:[" + id + "],断开连接");
       cache.del('cs_id');
       //向房间广播客服断线
-      io.of('/').to('CLIENT').emit('sever_disconnect', "客服已断开连接...")
+      io.of('/').to('CLIENT').emit('sever_disconnect', "客服已断开连接...");
     });
-    socket.join(room)
+    socket.join(room);
+ 
+    io.of('/').to('CLIENT').emit("cs_Connect", "客服已连接，请提出你的问题。");
     // 房间SERVER 所有 socket id
     io.of('/').adapter.clients([room], (err, clients) => {
       console.log("客服端id: " + JSON.stringify(clients));
@@ -90,11 +92,12 @@ io.on("connect", async (socket) => {
       socket.disconnect();    //断开当前连接
       return;
     });
+    socket.join(room);
     //刷新客户列表
     //客户通道
     if (await cache.get('cs_id')) {
-      socket.join(room);
       // 告诉SERVER 端 客户进房间
+      console.log("新客户加入 ---> id: " + id);
       io.to(await cache.get('cs_id')).emit('client_Connect', { client_id: id, ip, conDate: Date.now() });
       io.to(id).emit("exchange", { cs_id: await cache.get('cs_id'), msg: "亲，请问有什么帮到你呢？", data: Date.now() });
 
