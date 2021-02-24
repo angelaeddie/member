@@ -72,7 +72,7 @@ router.use('/setting',setting);
 //注意上传图片的路由   ueditor.config.js配置图片post的地址
 router.all('/editorUpload', ueditor(['public', {
     "imageAllowFiles": [".png", ".jpg", ".jpeg",".gif"],
-    "imagePathFormat": "/KoaMemberUploadfliexx/ueditor/image/{yyyy}{mm}{dd}/{rand:6}{yyyy}{mm}{dd}{hh}{ii}{ss}{rand:6}" // 保存为原文件名
+    "imagePathFormat": "/KoaMemberUploadfliexx/ueditor/image/{yyyy}{mm}{dd}/{rand:10}{mm}{dd}{hh}{ii}{ss}{rand:6}" // 保存为原文件名
 }]))
 
 module.exports=router.routes();
